@@ -45,3 +45,10 @@ def grid_search(parameters, func):
         print('Time for '+str(params)+' is: ' + str(stop - start))
 
     return times, scores
+
+def retrieve_embeddings(DIR):
+    with open(DIR) as f:
+        lines = f.readlines()
+    lines2 = [line.split(' ') for line in lines[1:]]
+    embeddings = dict([(line[0], np.asarray([float(el) for el in line[1:]]))for line in lines2])
+    return embeddings
