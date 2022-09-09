@@ -4,7 +4,7 @@ from node2vec import Node2Vec
 
 def embedding_func(dimensions,walk_length, G_embeddings, EMBEDDING_FILENAME):
   # Generate walks
-  node2vec = Node2Vec(G_embeddings, dimensions=dimensions, walk_length=walk_length, num_walks=50, workers=4)
+  node2vec = Node2Vec(G_embeddings, dimensions=dimensions, walk_length=walk_length, num_walks=50, workers=1)
 
   # train node2vec model
   n2w_model = node2vec.fit(window=7, min_count=1)
