@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from utils import filter_metrics_means, filter_metrics_sdterr
+from PPIdiscovery.utils import filter_metrics_means, filter_metrics_sdterr
 
 def add_line(ax, xpos, ypos):
     line = plt.Line2D([ypos, ypos+ .2], [xpos, xpos], color='black', transform=ax.transAxes)

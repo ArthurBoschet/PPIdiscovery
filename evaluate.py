@@ -1,5 +1,5 @@
-from utils import operate_dict, operate_dict_const
-from embeddings import retrieve_embeddings
+from PPIdiscovery.utils import operate_dict, operate_dict_const
+from PPIdiscovery.embeddings import retrieve_embeddings
 
 #basic
 from tqdm import tqdm
