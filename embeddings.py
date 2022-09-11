@@ -1,5 +1,6 @@
 import timeit
 from node2vec import Node2Vec
+import numpy as np
 
 
 def embedding_func(dimensions,walk_length, G_embeddings, EMBEDDING_FILENAME):
@@ -45,6 +46,7 @@ def grid_search(parameters, func):
         print('Time for '+str(params)+' is: ' + str(stop - start))
 
     return times, scores
+
 
 def retrieve_embeddings(DIR):
     with open(DIR) as f:
