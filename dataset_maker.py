@@ -17,12 +17,17 @@ def compute_negatome(G):
   G_neg.remove_edges_from(G.edges())
   return G_neg
 
-def realistic_dataset_maker(G, G_neg, excluded_percent=0.05, network_density=None):
-  #excluded edges
-  excluded_edges = random.sample(G.edges, int(len(G.edges)*excluded_percent))
+def realistic_dataset_maker(G, G_neg, excluded_percent=0.05, network_density=None, G_train=None):
 
-  G_train = deepcopy(G)
-  G_train.remove_edges_from(excluded_edges)
+  if G_train is None:
+    #excluded edges
+    excluded_edges = random.sample(G.edges, int(len(G.edges)*excluded_percent))
+    G_train = deepcopy(G)
+    G_train.remove_edges_from(excluded_edges)
+  else:
+    G_excluded = deepcopy(G)
+    G_excluded.remove_edges_from(G_train.edges)
+    excluded_edges = list(G_excluded.edges)
 
   assert len(G_train.edges) < len(G.edges)
 
