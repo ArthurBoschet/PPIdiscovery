@@ -25,7 +25,7 @@ def sample_negative_edges(G, num_neg):
     p1, p2 = random.sample(proteins, 2)
     if (p1, p2) not in edges and (p2, p1) not in edges:
       negs.add((p1, p2))
-  return negs
+  return list(negs)
 
 def realistic_dataset_maker(G, excluded_percent=0.05, network_density=None, G_train=None):
 
