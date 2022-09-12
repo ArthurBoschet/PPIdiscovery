@@ -38,9 +38,9 @@ def performance_heatmap_plot(scores, DIR=None, cmap='Reds', figsize = (15,10)):
     df_stderr = df_stderr.T
     annot = np.asarray([["{:.4f}".format(df.iloc[i,j]) +u"\u00B1"+"{:.4f}".format(df_stderr.iloc[i,j]) for j in range(df.shape[1])] for i in range(df.shape[0])])
 
-    norm_df = (df - df.min(0)) / (df.max(0) - df.min(0))
+    norm_df = (df - df.min(0)) / (df.max(0) - df.min(0) + 1e-10)
 
-    g = sns.clustermap(norm_df, row_cluster=False, col_cluster=False , cmap=cmap,annot=annot, yticklabels=False, xticklabels=True, linewidths=0.004
+    g = sns.clustermap(norm_df, row_cluster=False, col_cluster=False , cmap=cmap, annot=annot, yticklabels=False, xticklabels=True, linewidths=0.004
                     , linecolor='black', figsize=figsize, fmt='')
 
     g.ax_heatmap.yaxis.set_ticks_position("left")
