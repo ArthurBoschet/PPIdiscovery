@@ -8,16 +8,26 @@ def density(g):
   return 2*len(g.edges)/(len(g.nodes)**2)
 
 
-def compute_negatome(G):
-  #negatome
-  L = list(G.nodes())
-  G_neg = nx.Graph()
-  G_neg.add_nodes_from(L)
-  G_neg.add_edges_from(itertools.combinations(L, 2))
-  G_neg.remove_edges_from(G.edges())
-  return G_neg
+# def compute_negatome(G):
+#   #negatome
+#   L = list(G.nodes())
+#   G_neg = nx.Graph()
+#   G_neg.add_nodes_from(L)
+#   G_neg.add_edges_from(itertools.combinations(L, 2))
+#   G_neg.remove_edges_from(G.edges())
+#   return G_neg
 
-def realistic_dataset_maker(G, G_neg, excluded_percent=0.05, network_density=None, G_train=None):
+def sample_negative_edges(G, num_neg):
+  negs = set()
+  proteins = G.nodes
+  edges = set(G.edges)
+  while len(negs) < num_neg:
+    p1, p2 = random.sample(proteins, 2)
+    if (p1, p2) not in edges and (p2, p1) not in edges:
+      negs.add((p1, p2))
+  return negs
+
+def realistic_dataset_maker(G, excluded_percent=0.05, network_density=None, G_train=None):
 
   if G_train is None:
     #excluded edges
@@ -36,8 +46,10 @@ def realistic_dataset_maker(G, G_neg, excluded_percent=0.05, network_density=Non
     network_density = density(G)
   negative_sampling_number = int(len(excluded_edges)*(1/network_density - 1))
 
+    #   #sampled negative edges
+    #   negative_egdes = random.sample(G_neg.edges, negative_sampling_number)
   #sampled negative edges
-  negative_egdes = random.sample(G_neg.edges, negative_sampling_number)
+  negative_egdes = sample_negative_edges(G, negative_sampling_number)
 
   #dataset
   X = np.vstack([np.array([e[0], e[1]]) for e in negative_egdes + excluded_edges])
