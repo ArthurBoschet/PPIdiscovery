@@ -20,6 +20,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import roc_curve, auc
 from sklearn.metrics import auc
 from sklearn.metrics import RocCurveDisplay, PrecisionRecallDisplay
+from sklearn.metrics import average_precision_score
 
 
 
@@ -52,6 +53,7 @@ def evaluate_embedding(dimensions, walk_length, xtrain, ytrain, DIR, num_cv=3):
       fpr, tpr, thresholds = roc_curve(ytrain[test], pred_prob[:,1], pos_label=1)
       auroc = auc(fpr, tpr)
       report['auroc_score'] = auroc
+      report['average_precision'] = average_precision_score(ytrain[test], pred_prob[:,1])
       reports.append(report)
 
       means = operate_dict_const(operate_dict(reports, lambda a,b: a+b), lambda a,b:a/b, len(reports))
