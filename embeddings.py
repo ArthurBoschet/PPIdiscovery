@@ -1,5 +1,6 @@
 import timeit
 from node2vec import Node2Vec
+from gensim.models import Word2Vec
 import numpy as np
 
 
@@ -54,3 +55,8 @@ def retrieve_embeddings(DIR):
     lines2 = [line.split(' ') for line in lines[1:]]
     embeddings = dict([(line[0], np.asarray([float(el) for el in line[1:]]))for line in lines2])
     return embeddings
+
+
+#### new functions ####
+def load_embedder(dimension, length, model_dir):
+  return Word2Vec.load(model_dir + f'_embedding_model_dim:{dimension}_len:{length}')
