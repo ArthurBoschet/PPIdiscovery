@@ -57,6 +57,3 @@ def retrieve_embeddings(DIR):
     return embeddings
 
 
-#### new functions ####
-def load_embedder(dimension, length, model_dir):
-  return Word2Vec.load(model_dir + f'_embedding_model_dim:{dimension}_len:{length}')
